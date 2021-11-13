@@ -19,9 +19,12 @@ for i = 1 : datasize(1) - 10
     % T10 = [T10, data.Close(i + 10 : i + 19)]
 end
 
-testX = X(:, end - 30);
+% Alteração do Moc™
+% testX = X(:, end - 30);
+% end:end tem 1 elemento, end-n:end tem n+1 elementos
+testX = T1(:, end - 30 : end);
 X = X(:, 1 : end - 31);
-testT = T1(end - 30 : end);
+testT = T1(end - 30 : end); % Valor real do ultimo mes
 T1 = T1(1 : end - 31);
 
 % Training
@@ -32,9 +35,13 @@ plotperform(tr)
 
 % Test
 Y = [];
-for day = 1 : 30
-    forecast = net(testX);
-    testX = [testX(2 : end); forecast];
+for day = 1 : 31
+    % Alteração do Moc™
+    % forecast = net(testX);
+    % testX = [testX(2 : end); forecast]
+    % Y = [Y, forecast];
+    display(testX(:,day));
+    forecast = net(testX(:, day));
     Y = [Y, forecast];
 end
 

@@ -1,41 +1,30 @@
 clear
 clc
 
-data = readtable('PETR4.SA.csv');
-data(:, {'Date', 'Open', 'High', 'Low', 'AdjClose'}) = [];
-data = rmmissing(data);
-data(ismember(data.Volume, 0), :) = [];
-data(:, "Volume") = [];
+data = getData('PETR4.SA.csv');
+datasize = size(data , 1);
 
-X = [];
-T1 = [];
-T10 = [];
+% Network parameters
+inputSize = 10;
+outputSize = 1;
+modelId = 1;
+testSize = 90;
 
-datasize = size(data);
-
-for i = 1 : datasize(1) - 10
-    X = [X, data.Close(i : i + 9)];
-    T1 = [T1, data.Close(i + 10)];
-    % T10 = [T10, data.Close(i + 10 : i + 19)]
-end
-
-% Alteração do Moc™
-% testX = X(:, end - 30);
-% end:end tem 1 elemento, end-n:end tem n+1 elementos
-testX = T1(:, end - 30 : end);
-X = X(:, 1 : end - 31);
-testT = T1(end - 30 : end); % Valor real do ultimo mes
-T1 = T1(1 : end - 31);
+% Get input data and target data
+[X, T] = getInputTarget(data, inputSize, outputSize);
+% Get test data separately (testSize days)
+[X, T, testX, testT] = splitTest(X, T, testSize, inputSize, outputSize);
 
 % Training
 setdemorandstream(23);
-net = preDefinedModel(1);
-[net, tr] = train(net, X, T1);
+net = preDefinedModel(modelId);
+net.divideParam.testRatio = 0;
+[net, tr] = train(net, X, T);
 plotperform(tr)
 
 % Test
 Y = [];
-for day = 1 : 31
+for day = 1 : testSize
     % Alteração do Moc™
     % forecast = net(testX);
     % testX = [testX(2 : end); forecast]

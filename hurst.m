@@ -3,12 +3,12 @@ clc
 
 data = getData('PETR4.SA.csv');
 
-len = length(data);
 y = [];
 x = [];
-N = 8;
+len = length(data);
+N = len;
 
-while N < len
+while N > 4
     x = [x; N];
     prev = 1;
     RSk = [];
@@ -20,10 +20,8 @@ while N < len
     end
     RSk = [RSk getRS(data(prev : end))];
     y = [y; mean(RSk)];
-    N = 2 * N;
+    N = ceil(N / 2);
 end
-x = [x; len];
-y = [y; getRS(data)];
 
 x = log2(x);
 y = log2(y);
@@ -35,14 +33,11 @@ function RS = getRS(data)
     diff = data - m;
     Vk  = diff(1);
     N = length(data);
-    % RS = zeros(N, 1);
     V = zeros(N, 1);
     V(1) = Vk;
     for k = 2 : N
         Vk = Vk + diff(k);
         V(k) = Vk;
-        % RS(k) = (max(V(1 : k)) - min(V(1 : k))) / std(data(1 : k));
     end
     RS = (max(V) - min(V)) / std(data);
-    %RS = mean(RS);
 end

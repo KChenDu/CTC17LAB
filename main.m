@@ -8,7 +8,8 @@ datasize = size(data , 1);
 inputSize = 10;
 outputSize = 1;
 modelId = 1;
-testSize = 90;
+testSize = 65; % starts in day 2021-07-19, three months before than
+               % last day in file: 2021-10-19
 
 % Get input data and target data
 [X, T] = getInputTarget(data, inputSize, outputSize);

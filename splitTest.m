@@ -9,7 +9,7 @@ function [X, T, testX, testT] = splitTest(X, T, testSize, inputSize, outputSize)
     % CORRETO:
     % outputSize = 3; testSize = 6;
     % [1 2 3] [2 3 4] [3 4 5] [4 5 6] -> testT_size = 4
-    testT_size = testSize - outputSize + 1
+    actualTestSize = testSize - outputSize + 1;
 
 
     % outputSize = 7
@@ -36,10 +36,10 @@ function [X, T, testX, testT] = splitTest(X, T, testSize, inputSize, outputSize)
     % 
     
     % testT has testT_size elements of size outputSize
-    testT = T(end - testT_size + 1 : end);
-    T = T(1 : end - testT_size);
+    testT = T(:, end - actualTestSize + 1 : end);
+    T = T(:, 1 : end - actualTestSize);
     
     % testX has testT_size elements of size size(x, 2)
-    testX = X(:, end - testT_size + 1 : end);
-    X = X(:, 1 : end - testT_size);
+    testX = X(:, end - actualTestSize + 1 : end);
+    X = X(:, 1 : end - actualTestSize);
 end

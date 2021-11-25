@@ -14,7 +14,7 @@ testSize = 65; % starts in day 2021-07-19, three months before than
 % Get input data and target data
 [X, T] = getInputTarget(data, inputSize, outputSize);
 % Get test data separately (testSize days)
-[X, T, testX, testT] = splitTest(X, T, testSize, inputSize, outputSize);
+[X, T, testX, testT, actualTestSize] = splitTest(X, T, testSize, inputSize, outputSize);
 
 % Training
 setdemorandstream(23);
@@ -25,7 +25,7 @@ plotperform(tr)
 
 % Test
 Y = [];
-for day = 1 : testSize
+for day = 1 : actualTestSize
     % Alteração do Moc™
     % forecast = net(testX);
     % testX = [testX(2 : end); forecast]

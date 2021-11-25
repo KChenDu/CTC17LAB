@@ -1,4 +1,4 @@
-function [X, T, testX, testT] = splitTest(X, T, testSize, inputSize, outputSize)
+function [X, T, testX, testT, actualTestSize] = splitTest(X, T, testSize, inputSize, outputSize)
     % splitTest splits the data into training and test data
     % testT must predict testSize days, independent of its size
 

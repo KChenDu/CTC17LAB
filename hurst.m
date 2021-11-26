@@ -26,7 +26,7 @@ end
 x = log2(x);
 y = log2(y);
 
-hurst_exp = regress(y, x);
+hurst_exp = regress(y, x)
 
 function RS = getRS(data)
     m = mean(data);

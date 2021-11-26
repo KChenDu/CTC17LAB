@@ -18,12 +18,13 @@ function net = preDefinedModel(identifier)
             net.layers{3}.transferFcn = 'purelin'; % Output layer: linear
 
             validId = true;
-        case 3
+        case {3, 7}
             trainFcn = 'trainrp'; % Resilient Backpropapation
-            hiddenLayerSize = 15; % TODO: ESCOLHER UMA CONFIGURAÇÃO
+            hiddenLayerSize = [170, 85]; % TODO: ESCOLHER UMA CONFIGURAÇÃO
             net = feedforwardnet(hiddenLayerSize, trainFcn);
             net.layers{1}.transferFcn = 'poslin'; % TODO: ESCOLHER UMA CONFIGURAÇÃO
-            net.layers{2}.transferFcn = 'purelin'; % Output layer: linear
+            net.layers{2}.transferFcn = 'poslin'; % TODO: ESCOLHER UMA CONFIGURAÇÃO
+            net.layers{3}.transferFcn = 'purelin'; % Output layer: linear
 
             validId = true;
         case 4
@@ -44,11 +45,12 @@ function net = preDefinedModel(identifier)
 
             validId = true;
         case 6
-            trainFcn = 'trainbr'; % TODO: ESCOLHER ALGORITMO
-            hiddenLayerSize = 15; % TODO: ESCOLHER UMA CONFIGURAÇÃO
-            net = feedforwardnet(hiddenLayerSize, trainFcn);
+            trainFcn = 'trainrp'; % TODO: ESCOLHER ALGORITMO
+            hiddenLayerSize = [20, 15]; % TODO: ESCOLHER UMA CONFIGURAÇÃO
+            net = feedforwardnet(hiddenLayerSize, trainFcn)
             net.layers{1}.transferFcn = 'poslin'; % TODO: ESCOLHER UMA CONFIGURAÇÃO
-            net.layers{2}.transferFcn = 'purelin'; % Output layer: linear
+            net.layers{2}.transferFcn = 'poslin'; % TODO: ESCOLHER UMA CONFIGURAÇÃO
+            net.layers{3}.transferFcn = 'purelin'; % Output layer: linear
 
             validId = true;
         otherwise
